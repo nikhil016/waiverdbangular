@@ -1,0 +1,182 @@
+<div class="container">
+
+  <form #waiverForm="ngForm" (ngSubmit)="WaiverSubmit(waiverForm.value)">
+
+    <div class="box">
+      <div class="row" *ngIf="ismsg" style="    background-color: yellowgreen;
+        color: white;
+        width: 86%;
+        border: 1px solid;
+        margin-left: 103px;">
+        <div class="col-md-3 pull-left">
+          <p>{{SuccessMsg}}</p>
+        </div>
+      </div>
+      <div class="row mx-auto">
+        <div class="col-md-8">
+          <div class="row"  *ngIf="isedit">
+            <label class="label col-md-4 control-label ">Waiver DB:
+              <span>*</span>
+            </label>
+            <div class="col-md-5">
+              <input type="text" class="form-control" #WaiverID name="WaiverID" ngModel>
+            </div>
+            <input type="button" class="col-md-3 btn btn-warning" (click)="Search(WaiverID)" value="Search" ngModel>
+          </div>
+          <div>
+            <div class="row">
+              <label class="label col-md-4 control-label ">Date/Time:
+                <span>*</span>
+              </label>
+              <div class="col-md-5">
+                <input type="date" name="Year" ngModel class="form-control">
+              </div>
+
+            </div>
+
+            <div class="row">
+              <label class="label col-md-4 control-label">Product Family:</label>
+              <div class="col-md-5">
+                <input type="text" class="form-control" ngModel name="productFamily">
+              </div>
+            </div>
+            <div class="row">
+              <label class="label col-md-4 control-label">Product line(PL):
+                <span>*</span>
+              </label>
+              <div class="col-md-5">
+                <select name="ProductLine" ngModel class="form-control" required>
+                  <option value="0">--Select--</option>
+                  <option *ngFor="let reason of ProductLine" [value]="reason.value">{{reason.value }} </option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <label class="label col-md-4 control-label">Organization:
+                <span>*</span>
+              </label>
+              <div class="col-md-5">
+                <select name="organizations" id="orgs" name="organization" class="form-control" required>
+                  <option value="0">--Select--</option>
+                  <option *ngFor="let reason of Orgs" [value]="reason.value">{{reason.value }} </option>
+
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <label class="label col-md-4 control-label">QSO only:</label>
+              <div class="col-md-5">
+                <label class="radio-inline">
+                  <input type="radio" class="col-md-6" ngModel value="Y" (click)="ISQSO(1)" name="QSO_Only"> Yes
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" class="col-md-6" ngModel value="N" (click)="ISQSO(0)" selected name="QSO_Only"> No
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <label class="label col-md-4 control-label">Quality Manager:
+                <span>*</span>
+              </label>
+              <div class="col-md-5">
+                <select name="QualityManager" ngModel class="form-control" required>
+                  <option value="0">--Select--</option>
+                  <option *ngFor="let reason of QMs" [value]="reason.value">{{reason.name }} </option>
+                </select>
+              </div>
+            </div>
+            <div class="row" *ngIf="!QSOTrue">
+              <label class="label col-md-4 control-label">Waiver Owner:
+                <span>*</span>
+              </label>
+              <div class="col-md-5">
+                <select name="WaiverOwner" ngModel class="form-control" required>
+                  <option value="0">--Select--</option>
+                  <option *ngFor="let reason of WOs" [value]="reason.value">{{reason.name }} </option>
+                </select>
+
+              </div>
+            </div>
+            <div class="row" *ngIf="!QSOTrue">
+              <label class="label col-md-4 control-label">Target SHP Date:</label>
+              <div class="col-md-5">
+                <input type="date" name="targetshpDate" ngModel class="form-control">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="row" *ngIf="!QSOTrue">
+                <label class="label col-md-4 control-label">Waiver Type(defect):</label>
+                <div class="col-md-5">
+                  <select name="DefectStatus" ngModel class="form-control">
+                    <option value="0">--Select--</option>
+                    <option *ngFor="let reason of DefectTypes" [value]="reason.value">{{reason.name }} </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row" *ngIf="!QSOTrue">
+                <label class="label col-md-4 control-label">Waiver Status:</label>
+                <div class="col-md-5">
+                  <select name="Waiver_Status" ngModel class="form-control">
+                    <option value="0">--Select--</option>
+                    <option value="C">Closed</option>
+                    <option value="O">Open</option>
+                    <option value="P">Permanent</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row" >
+                <label class="label col-md-4 control-label">Target Closure Date:</label>
+                <div class="col-md-5">
+                  <input type="date" name="targetClosureDate" ngModel class="form-control">
+                </div>
+              </div>
+              <div class="row">
+                <label class="label col-md-4 control-label">Product Number:
+                  <span>*</span>
+                </label>
+                <div class="col-md-5">
+                  <input type="text" name="ProductNumber" ngModel class="form-control" required>
+                </div>
+              </div>
+              <div class="row">
+                <label class="label col-md-4 control-label">Product Name:
+                  <span>*</span>
+                </label>
+                <div class="col-md-5">
+                  <input type="text" name="productName" ngModel class="form-control" required>
+                </div>
+              </div>
+              <div class="row">
+                <label class="label col-md-4 control-label">Qso Document Link:</label>
+                <div class="col-md-5">
+                  <input type="text" name="QSODocumentLink" ngModel class="form-control">
+                </div>
+              </div>
+              <div class="row" *ngIf="!QSOTrue">
+                <label class="label col-md-4 control-label">Waiver Document Link:</label>
+                <div class="col-md-5">
+                  <input type="text" name="WaiverDocumentLink" ngModel class="form-control">
+                </div>
+              </div>
+              <div class="row">
+                <label class="label col-md-4 control-label">Comments:</label>
+                <div class="col-md-5">
+                  <textarea id="comm" name="comments" ngModel rows="4" cols="50" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-12 text-center ">
+            <button type="submit" class="btn btn-warning" [disabled]="!waiverForm.valid">Submit</button> &nbsp;
+
+            <button type="button" class="btn btn-danger" (click)="clearForm(waiverForm)">Clear
+            </button>
+            &nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

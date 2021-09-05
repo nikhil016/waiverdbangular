@@ -1,0 +1,127 @@
+<div class="container">
+  <form #waiverForm="ngForm" (ngSubmit)="Search(waiverForm.value)">
+    <!-- <div class="row">
+      <div class="col-md-6  pull-left">
+          <h5 class="subject"> <i class="fa fa-search" aria-hidden="true"></i>Search Waiver Form</h5>
+      </div>
+    </div> -->
+    <!-- <span style=color:black>Please indicate your filter criteria below</span> -->
+    <div class="row mx-auto box">
+        <span style=color:black>Please Select one or more filter criteria below</span>
+    <div class="col-md-4">
+    <div class="row">
+      <label class="label col-md-4 control-label">Database Id:</label>
+      <div class="col-md-5">
+        <input type="text"  class="form-control" ngModel name="WaiverID">
+      </div>
+    </div>
+    <div class="row">
+      <label class="label col-md-4 control-label">Month:</label>
+      <div class="col-md-5">
+        <select name="Month"  ngModel class="form-control">
+            <option value="">--Select--</option>
+            <option *ngFor="let reason of Months" [value]="reason.value">{{reason.name }} </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <label class="label col-md-4 control-label">Year:</label>
+      <div class="col-md-5">
+        <select name="Year" ngModel  class="form-control">
+            <option value="">--Select--</option>
+            <option *ngFor="let reason of Years" [value]="reason.value">{{reason.name }} </option>
+        </select>
+      </div>
+      </div>
+      <div class="row">
+        <label class="label col-md-4 control-label">QSO only:</label>
+        <div class="col-md-3">
+          <input type="checkbox" name="QSO_Only" ngModel >
+        </div>
+      </div>
+     
+    </div>
+      <div class="col-md-4">
+
+      <div class="row">
+        <label class="label col-md-4 control-label">Waiver Status:</label>
+        <div class="col-md-5">
+          <select name="Waiver_Status" ngModel class="form-control">
+            <option value="">--Select--</option>
+            <option value="C">Closed</option>
+            <option value="O">Open</option>
+            <option value="P">Permanent</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="label col-md-4 control-label">Product Line:</label>
+        <div class="col-md-5">
+          <select name="ProductLine"  ngModel class="form-control">
+              <option value="">--Select--</option>
+              <option *ngFor="let reason of ProductLine" [value]="reason.value">{{reason.value }} </option>
+       
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="label col-md-4 control-label">Product number:</label>
+        <div class="col-md-5">
+          <input type="text" name="ProductNumber" ngModel  class="form-control">
+        </div>
+      </div>
+      
+      </div>
+      <div class="col-md-4">
+          <div class="row">
+              <label class="label col-md-4 control-label">Waiver Type(defect):</label>
+              <div class="col-md-5">
+                <select name="WaiverType" ngModel class="form-control">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let reason of DefectTypes" [value]="reason.value">{{reason.name }} </option>
+                </select>
+              </div>
+            </div>
+          <div class="row">
+              <label class="label col-md-4 control-label">Waiver Owner:</label>
+              <div class="col-md-5">
+                <select  name="Waiver_Owner" ngModel  class="form-control">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let reason of WOs" [value]="reason.value">{{reason.name }} </option>
+      
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <label class="label col-md-4 control-label">Quality Manager:</label>
+              <div class="col-md-5">
+                <select name="QualityManager"  ngModel class="form-control">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let reason of QMs" [value]="reason.value">{{reason.name }} </option>
+      
+                </select>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <br>
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-warning">Submit</button> 
+                    <button type="button" class="btn btn-warning" (click)="btnexport()">Excel</button>
+                </div>
+              </div>
+           
+      </div>
+      </div>
+    
+  </form>
+  <div>
+    <ag-grid-angular  
+  style="height: 500px;"  
+    class="ag-theme-balham"     this.gridOptions.rowData=data;  (cellClicked)='onCellClicked($event)'
+    [gridOptions]="gridOptions" 	[columnDefs]="columnDefs"    >
+</ag-grid-angular>
+  </div>
+  </div>
+
